@@ -1,0 +1,27 @@
+{
+  "name": "spark",
+  "version": "0.0.0",
+  "description": "spark core testing",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattohagan/spark-heroku.git"
+  },
+  "keywords": [
+    "heroku",
+    "spark"
+  ],
+  "author": "mattohagan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattohagan/spark-heroku/issues"
+  },
+  "homepage": "https://github.com/mattohagan/spark-heroku",
+  "dependencies": {
+    "logfmt": "^1.1.2",
+    "express": "^4.6.1"
+  }
+}
