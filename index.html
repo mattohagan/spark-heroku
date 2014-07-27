@@ -15,7 +15,7 @@
 		form button { font-size: 40px; font-family: 'Lato', sans-serif; font-weight: 100; color: #fff; width: 8%; border: 4px solid #85D696; padding: 10px; background-color: transparent; }
 		form button:hover { border-color: #fff;}
 
-		#messages { height: 75%; overflow: auto; list-style-type: none; margin: 0; padding: 0; }
+		#messages { height: 75%; overflow-y: scroll; list-style-type: none; margin: 0; padding: 0; }
 
 		#messages li { padding: 5px 10px; }
 
@@ -50,15 +50,58 @@
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
 	<script>
+		var username = 'ANON';
+		var previousName = 'ANON';
+		var state = '';
 	 	var socket = io();
 	 	$('form').submit(function(){
-	 		socket.emit('chat message', $('#m').val());
+	 		sendMess = username;
+	 		if(state != '') {
+	 			sendMess += "[" + state + "]" + ": " + $('#m').val();
+	 		}
+	 		else {
+	 			sendMess += ": " + $('#m').val();
+	 		}
+	 		socket.emit('chat message', sendMess);
 	 		$('#m').val('');
 	 		return false;
 	 	});
+
 	 	socket.on('chat message', function(msg){
 	 		$('#messages').append($('<li>').text(msg));
+	 		$('#messages').scrollTop($('#messages')[0].scrollHeight);
 	 	});
+
+	 	socket.on('location', function(loc){
+	 		$('#loc').val(loc);
+	 	});
+	 	
+	 	socket.on('state', function(code){
+	 		state = code;
+	 	});
+
+	 	$('#user').change(function() {
+	 		username = $('#user').val().toUpperCase();
+	 		socket.emit('chat message', "- " + previousName + " has changed their name to " + username + " -");
+	 		previousName = username;
+	 		socket.emit('username', username);
+	 	});
+
+	 	function getLocation() {
+            navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
+            //socket.emit('chat message', "navigator");
+        }
+        function locationSuccess(position) {
+            loc = position.coords.latitude + ',' + position.coords.longitude;
+            socket.emit('location', loc);
+            //socket.emit('chat message', position);
+        }
+        function locationError(error) {
+            console.log('Error getting location: ' + error.code);
+        }
+
+        getLocation();
+        
 	 </script>
 </body>
 </html>
