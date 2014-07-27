@@ -5,6 +5,9 @@
 	<style>
 		html {font-size: 40px; font-family: 'Lato', sans-serif; font-weight: 100; color: #fff; background-color: #88BCD7;}
 
+		.topBox {font-size: 40px; font-family: 'Lato', sans-serif; font-weight: 400; color: #fff; border: none; border-left: 4px solid #85D696; background-color: transparent; padding: 10px; margin: 0px 0px 10px 0px;}
+		.topBox:hover, .topBox:focus {border-color:#fff; outline: none;}
+
 		form {padding: 3px; position: fixed; bottom: 0; width: 100%; }
 
 		form input { font-size: 40px; font-family: 'Lato', sans-serif; font-weight: 100; color: #fff; background-color: transparent; border: 0; border-bottom: 4px solid #fff; padding: 10px; width: 90%; margin-right: .5%; outline: 0; }
@@ -12,31 +15,50 @@
 		form button { font-size: 40px; font-family: 'Lato', sans-serif; font-weight: 100; color: #fff; width: 8%; border: 4px solid #85D696; padding: 10px; background-color: transparent; }
 		form button:hover { border-color: #fff;}
 
-		#messages { list-style-type: none; margin: 0; padding: 0; }
+		#messages { height: 75%; overflow: auto; list-style-type: none; margin: 0; padding: 0; }
 
 		#messages li { padding: 5px 10px; }
 
-		#messages li:nth-child(odd) { background-color: rgba(0, 0, 0, 0.05); }
+		#messages li:nth-child(odd) { background-color: rgba(0, 0, 0, 0.05);}
+
+		::-webkit-scrollbar {
+		    width: 10px;
+		}
+		 
+		::-webkit-scrollbar-track {
+		    background-color: rgba(0, 0, 0, 0.05); 
+		    border-radius: 2px;
+		}
+		 
+		::-webkit-scrollbar-thumb {
+		    border-radius: 2px;
+		    background-color: #85D696;
+		}
 	</style>
 </head>
 <body>
+	<input style="float: left" class="topBox" id="user" placeholder="username" autocomplete="off" />
+	<input style="margin-left: 10px;" class="topBox" id="loc" placeholder="location" autocomplete="off" />
+	<div>
 	<ul id="messages"></ul>
+	</div>
 	<form action="">
 		<input id="m" autocomplete="off" /><button>Send</button>
 	</form>
 
 	<script src="/socket.io/socket.io.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
- 	var socket = io();
- 	$('form').submit(function(){
- 		socket.emit('chat message', $('#m').val());
- 		$('#m').val('');
- 		return false;
- 	});
- 	socket.on('chat message', function(msg){
- 		$('#messages').append($('<li>').text(msg));
- 	});
- </script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+	<script>
+	 	var socket = io();
+	 	$('form').submit(function(){
+	 		socket.emit('chat message', $('#m').val());
+	 		$('#m').val('');
+	 		return false;
+	 	});
+	 	socket.on('chat message', function(msg){
+	 		$('#messages').append($('<li>').text(msg));
+	 	});
+	 </script>
 </body>
 </html>
