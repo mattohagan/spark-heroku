@@ -1,13 +1,6 @@
-spark core dashboard
+heroku server
 =============
 
-Heroku server for the soon to be built, spark core dashboard. This is for testing out hitting API's and creating the overall functionality.
+Currently in use to learn nodejs.
 
-Features to add:
-- weather
-- social notifications
-  - fb
-  - twitter
-  - gmail
-- most important task of the day
- 
+[Link to Live Server](http://pure-island-5568.herokuapp.com)
