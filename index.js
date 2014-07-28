@@ -4,6 +4,7 @@ var server = http.Server(app);
 var io = require('socket.io')(server);
 var request = require('request');
 
+var usersNum = 0;
 
 app.get('/', function(req, res) {
 	res.sendfile('index.html');
@@ -12,6 +13,8 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket){
 	console.log('a user connected');
 	io.emit('chat message', 'user connected');
+	usersNum += 1;
+	io.emit('userNum', usersNum);
 
 	socket.on('chat message', function(msg){
 		io.emit('chat message', msg);
@@ -19,6 +22,8 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
 		io.emit('chat message', 'a user has disconnected');
+		usersNum -= 1;
+		io.emit('userNum', usersNum);
 	});
 
 
