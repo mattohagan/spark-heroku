@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http');
 var server = http.Server(app);
 var io = require('socket.io')(server);
@@ -6,8 +7,17 @@ var request = require('request');
 
 var usersNum = 0;
 
+app.use("/public", express.static(__dirname + '/public'));
+app.use("/js", express.static(__dirname + '/public/js/'));
+app.use("/css", express.static(__dirname + '/public/css/'));
+
 app.get('/', function(req, res) {
-	res.sendfile('index.html');
+	
+	res.sendfile(__dirname + '/public/index.html');
+	//res.sendfile('index.html');
+	//if(req.url.indexOf('.css') != -1) {
+	//	res.sendfile(__dirname + 'public/css/main.css');
+	//}
 })
 
 io.on('connection', function(socket){
