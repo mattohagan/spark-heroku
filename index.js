@@ -13,7 +13,11 @@ app.use("/css", express.static(__dirname + '/public/css'));
 
 app.get('/', function(req, res) {
 	res.sendfile(__dirname + '/public/index.html');
-})
+});
+
+app.get('/map', function(req, res) {
+    res.sendfile(__dirname + '/public/map.html');
+});
 
 io.on('connection', function(socket){
 	console.log('a user connected');

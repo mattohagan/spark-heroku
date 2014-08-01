@@ -6,19 +6,19 @@
 </head>
 <body>
 	<input style="float: left" class="topBox" id="user" placeholder="username" autocomplete="off" />
+
 	<input style="margin-left: 10px;" class="topBox" id="loc" placeholder="location" autocomplete="off" />
-	<div>
+
 	<ul id="messages"></ul>
-	</div>
+
 	<form action="">
 		<input id="m" autocomplete="off" /><button>Send</button>
 	</form>
 
-	<div class="userNum" id="userNum"> </div>
+	<div class="userNum" id="userNum"></div>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
 	<script type="text/javascript" src="js/chat.js"></script>
 </body>
 </html>
